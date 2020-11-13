@@ -49,6 +49,12 @@ spec:
 {{/*              port: http*/}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: CR_VERSION
+              {{if hasKey .Values.image.token "value"}}value: {{.Values.image.token.value}}
+              {{- else }}valueFrom:{{ .Values.image.token.valueFrom | toYaml | nindent 26 }}{{- end }}
+            - name: version
+              value: {{ .Values.image.version }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
