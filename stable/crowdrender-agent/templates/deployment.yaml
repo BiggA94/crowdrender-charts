@@ -50,10 +50,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: CR_VERSION
+            - name: token
               {{if hasKey .Values.image.token "value"}}value: {{.Values.image.token.value}}
               {{- else }}valueFrom:{{ .Values.image.token.valueFrom | toYaml | nindent 26 }}{{- end }}
-            - name: version
+            - name: CR_VERSION
               value: {{ .Values.image.version }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
