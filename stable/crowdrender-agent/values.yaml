@@ -48,6 +48,7 @@ service:
   ports:
     startport: 9669
     endport: 9696
+  nodePortStartPort: 32669
 
 ingress:
   enabled: false

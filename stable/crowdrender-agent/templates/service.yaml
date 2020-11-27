@@ -1,3 +1,4 @@
+{{- $root := . -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,6 +15,9 @@ spec:
     {{- range untilStep (.Values.service.ports.startport | int) (.Values.service.ports.endport | int) 1 }}
     - port: {{ . }}
       targetPort: p{{.}}
+      {{- if eq $root.Values.service.type "NodePort" }}
+      nodePort: {{ add . (sub $root.Values.service.nodePortStartPort $root.Values.service.ports.startport)}}
+      {{- end }}
       protocol: TCP
       name: p{{.}}
     {{- end }}
