@@ -38,9 +38,12 @@ spec:
             {{- range untilStep (.Values.service.ports.startport | int) (.Values.service.ports.endport | int) 1 }}
             - name: p{{.}}
               containerPort: {{.}}
+              {{- if $root.Values.deployment.useHostPort }}
+              hostPort: {{.}}
+              {{- end }}
               protocol: TCP
-              {{- if $root.Values.image.hostIp }}
-              hostIP: {{ $root.Values.image.hostIp }}
+              {{- if $root.Values.deployment.hostIp }}
+              hostIP: {{ $root.Values.deployment.hostIp }}
               {{- end -}}
             {{- end }}
           livenessProbe:

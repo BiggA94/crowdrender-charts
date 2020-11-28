@@ -10,12 +10,15 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
   version: cr_028_bl280
-  hostIp: null
   token:
     valueFrom:
       secretKeyRef:
         key: token
         name: crowdrender
+
+deployment:
+  hostIp: null
+  useHostPort: true
 
 imagePullSecrets: []
 nameOverride: ""
